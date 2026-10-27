@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="id" class="js" translate="no">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f3eee2">
+  <meta name="google" content="notranslate">
+  <meta name="description" content="Kurva — laboratorium ekonomi interaktif untuk memahami materi Pengantar Ekonomi semester 1: kelangkaan, mikro-makro, permintaan-penawaran, elastisitas, surplus, dan perilaku konsumen.">
+  <title>Kurva — Lab Ekonomi Semester 1</title>
+  <link rel="preload" href="assets/fonts/instrument-serif-regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/manrope-var.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/fonts/fonts.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%231b201b'/%3E%3Cpath d='M12 44c10 0 10-24 20-24s10 24 20 24' fill='none' stroke='%23f3eee2' stroke-width='5'/%3E%3Ccircle cx='32' cy='20' r='5' fill='%23e0522d'/%3E%3C/svg%3E">
+  <script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+  <a class="skip-link" href="#app">Lewati ke konten utama</a>
+
+  <div class="app-shell">
+    <aside class="rail" id="rail" aria-label="Navigasi utama">
+      <div class="rail-head">
+        <a class="brand" href="#/" aria-label="Kurva, beranda">
+          <span class="brand-word">kurva<span class="brand-dot">.</span></span>
+          <span class="brand-sub">lab ekonomi<br>semester 1</span>
+        </a>
+        <button type="button" class="rail-close" data-rail-close aria-label="Tutup menu">
+          <svg viewBox="0 0 20 20" aria-hidden="true"><path d="m5 5 10 10M15 5 5 15"/></svg>
+        </button>
+      </div>
+
+      <div class="rail-course">
+        <span class="micro-label">Mata kuliah</span>
+        <p>Pengantar Ekonomi</p>
+        <span>Fakultas Bisnis Digital</span>
+      </div>
+
+      <nav class="rail-nav" aria-label="Daftar pertemuan">
+        <a class="rail-home" href="#/" data-nav-home>
+          <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 9.5 10 3l7 6.5V17h-5v-4H8v4H3Z"/></svg>
+          <span>Beranda</span>
+        </a>
+        <div class="rail-label-row">
+          <span class="micro-label">Enam pertemuan</span>
+          <span class="rail-label-rule"></span>
+        </div>
+        <ol class="rail-list">
+          <li><a href="#/materi/1" data-rail="m1"><span class="rail-num">01</span><span class="rail-title">Konsep dasar</span><span class="rail-status" aria-hidden="true"></span></a></li>
+          <li><a href="#/materi/2" data-rail="m2"><span class="rail-num">02</span><span class="rail-title">Mikro &amp; makro</span><span class="rail-status" aria-hidden="true"></span></a></li>
+          <li><a href="#/materi/3" data-rail="m3"><span class="rail-num">03</span><span class="rail-title">Permintaan &amp; penawaran</span><span class="rail-status" aria-hidden="true"></span></a></li>
+          <li><a href="#/materi/4" data-rail="m4"><span class="rail-num">04</span><span class="rail-title">Elastisitas</span><span class="rail-status" aria-hidden="true"></span></a></li>
+          <li><a href="#/materi/5" data-rail="m5"><span class="rail-num">05</span><span class="rail-title">Pasar &amp; surplus</span><span class="rail-status" aria-hidden="true"></span></a></li>
+          <li><a href="#/materi/6" data-rail="m6"><span class="rail-num">06</span><span class="rail-title">Perilaku konsumen</span><span class="rail-status" aria-hidden="true"></span></a></li>
+        </ol>
+        <a class="rail-extra" href="#/rumus" data-nav-formula>
+          <span class="rail-extra-symbol">Σ</span>
+          <span><strong>Lembar rumus</strong><small>Sebelum ujian</small></span>
+          <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11M11 5l5 5-5 5"/></svg>
+        </a>
+      </nav>
+
+      <div class="rail-bottom">
+        <div class="progress-card">
+          <div class="progress-ring" data-progress-ring aria-hidden="true"><span data-progress-pct>0%</span></div>
+          <div class="progress-copy">
+            <strong data-progress-count>0 dari 6</strong>
+            <span>pertemuan selesai</span>
+          </div>
+        </div>
+        <div class="rail-footer">
+          <span>Dibuat untuk belajar mandiri.</span>
+          <button type="button" class="rail-reset" data-reset-progress>Reset progres</button>
+        </div>
+      </div>
+    </aside>
+
+    <div class="rail-overlay" data-rail-overlay></div>
+
+    <header class="mobile-topbar">
+      <a class="brand brand-mobile" href="#/" aria-label="Kurva, beranda">
+        <span class="brand-word">kurva<span class="brand-dot">.</span></span>
+      </a>
+      <div class="mobile-top-actions">
+        <span class="mobile-progress" data-mobile-progress>0/6</span>
+        <button type="button" class="menu-button" data-rail-open aria-label="Buka menu materi" aria-expanded="false" aria-controls="rail">
+          <span></span><span></span>
+        </button>
+      </div>
+    </header>
+
+    <div class="page-wrap">
+      <main id="app" tabindex="-1">
+        <noscript><div class="no-script">Situs ini membutuhkan JavaScript untuk menampilkan lab interaktif. Aktifkan JavaScript lalu muat ulang halaman.</div></noscript>
+      </main>
+
+      <footer class="site-footer">
+        <div class="footer-mark" aria-hidden="true">k.</div>
+        <div class="footer-copy">
+          <p>Kurva adalah catatan belajar interaktif dari materi Pengantar Ekonomi Pertemuan 1–6.</p>
+          <p class="footer-small">Rujukan: bahan ajar kuliah, Mankiw (<em>Principles of Economics</em>), Sukirno, serta Case, Fair &amp; Oster. Bukan pengganti penjelasan dosen atau buku teks.</p>
+        </div>
+        <a href="#/rumus" class="footer-link">Lembar rumus <span aria-hidden="true">↗</span></a>
+      </footer>
+    </div>
+  </div>
+
+  <div class="toast" data-toast role="status" aria-live="polite"></div>
+
+  <script src="js/content-home.js" defer></script>
+  <script src="js/content-m1.js" defer></script>
+  <script src="js/content-m2.js" defer></script>
+  <script src="js/content-m3.js" defer></script>
+  <script src="js/content-m4.js" defer></script>
+  <script src="js/content-m5.js" defer></script>
+  <script src="js/content-m6.js" defer></script>
+  <script src="js/content-formulas.js" defer></script>
+  <script src="js/labs.js" defer></script>
+  <script src="js/app.js" defer></script>
+</body>
+</html>
