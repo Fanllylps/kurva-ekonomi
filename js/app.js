@@ -172,11 +172,11 @@
   function updateProgressUI() {
     const count = state.done.length;
     const pct = Math.round((count / MODULES.length) * 100);
-    const ring = document.querySelector('[data-progress-ring]');
-    if (ring) {
-      ring.style.setProperty('--progress', pct + '%');
-      const ringLabel = ring.querySelector('[data-progress-pct]');
-      if (ringLabel) ringLabel.textContent = pct + '%';
+    const meter = document.querySelector('[data-progress-meter]');
+    if (meter) {
+      meter.style.setProperty('--progress', pct + '%');
+      meter.setAttribute('aria-valuenow', String(pct));
+      meter.setAttribute('aria-valuetext', count + ' dari ' + MODULES.length + ' pertemuan selesai');
     }
     const countLabel = document.querySelector('[data-progress-count]');
     if (countLabel) countLabel.textContent = count + ' dari ' + MODULES.length;
