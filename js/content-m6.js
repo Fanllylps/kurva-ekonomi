@@ -126,6 +126,11 @@ KURVA_CONTENT.m6 = `
         <p>Motivasi, persepsi, pembelajaran, keyakinan, dan sikap terhadap merek.</p>
       </article>
     </div>
+
+    <aside class="uts-source-marker" id="uts-ref-m6-consumer" tabindex="-1" aria-label="Rujukan UTS tentang perilaku konsumen">
+      <span class="micro-label">Kisi-kisi UTS · Bab 06</span>
+      <p><strong>Inti jawaban:</strong> jelaskan proses konsumen dari mencari informasi, membandingkan pilihan, membeli, hingga mengevaluasi setelah pembelian. Hubungkan keputusan dengan pendapatan dan harga serta faktor budaya, sosial, pribadi, dan psikologis—lalu terapkan pada kasusnya.</p>
+    </aside>
   </section>
 
   <section class="lesson" id="m6-preferensi">

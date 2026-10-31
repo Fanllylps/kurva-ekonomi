@@ -83,6 +83,10 @@ KURVA_CONTENT.m3 = `
       <span class="micro-label">Ceteris paribus</span>
       <p>Hukum permintaan hanya berlaku bila pendapatan, selera, harga barang lain, dan faktor non-harga lain tidak berubah. Kalau salah satunya berubah, kita tidak lagi bergerak di kurva yang sama—kurvanya bisa bergeser.</p>
     </div>
+    <aside class="uts-source-marker" id="uts-ref-m3-demand" tabindex="-1" aria-label="Rujukan UTS tentang hukum permintaan">
+      <span class="micro-label">Kisi-kisi UTS · Bab 03</span>
+      <p><strong>Inti jawaban:</strong> dengan faktor lain tetap, harga barang naik membuat jumlah yang diminta turun. Perubahan harga barang itu sendiri menggerakkan titik di sepanjang kurva; perubahan faktor nonharga dapat menggeser seluruh kurva permintaan.</p>
+    </aside>
   </section>
 
   <section class="lesson" id="m3-faktor-d">
@@ -131,6 +135,10 @@ KURVA_CONTENT.m3 = `
         <p>Saat hujan dan jam sibuk, tarif perjalanan naik. Sebagian pengguna membatalkan atau menunda perjalanan.</p>
       </article>
     </div>
+    <aside class="uts-source-marker" id="uts-ref-m3-demand-factors" tabindex="-1" aria-label="Rujukan UTS tentang faktor permintaan">
+      <span class="micro-label">Kisi-kisi UTS · Bab 03</span>
+      <p><strong>Inti jawaban:</strong> faktor pergeser permintaan meliputi pendapatan, selera, harga barang terkait, jumlah pembeli, distribusi pendapatan, dan ekspektasi. Tren viral menaikkan selera; pada setiap harga Qd bertambah sehingga D bergeser ke kanan.</p>
+    </aside>
   </section>
 
   <section class="lesson" id="m3-penawaran">
@@ -195,6 +203,10 @@ KURVA_CONTENT.m3 = `
         <p>Biaya input naik, gangguan produksi, komisi platform naik. Pada setiap harga, jumlah ditawarkan lebih kecil.</p>
       </div>
     </div>
+    <aside class="uts-source-marker" id="uts-ref-m3-supply" tabindex="-1" aria-label="Rujukan UTS tentang hukum dan faktor penawaran">
+      <span class="micro-label">Kisi-kisi UTS · Bab 03</span>
+      <p><strong>Inti jawaban:</strong> dengan faktor lain tetap, harga naik mendorong jumlah yang ditawarkan naik. Biaya input, teknologi, cuaca, pajak/subsidi, dan jumlah produsen menggeser kurva; biaya input naik menggeser S ke kiri.</p>
+    </aside>
   </section>
 
   <section class="lesson" id="m3-lab">
@@ -354,6 +366,11 @@ KURVA_CONTENT.m3 = `
       </ol>
       <button type="button" class="btn btn-small stepper-next">Buka langkah 1 <span aria-hidden="true">↓</span></button>
     </div>
+
+    <aside class="uts-source-marker" id="uts-ref-m3-equilibrium" tabindex="-1" aria-label="Rujukan UTS tentang perhitungan keseimbangan pasar">
+      <span class="micro-label">Kisi-kisi UTS · Bab 03</span>
+      <p><strong>Inti jawaban:</strong> keseimbangan ditemukan saat Qd = Qs. Selesaikan persamaan untuk memperoleh P*, substitusikan kembali ke salah satu fungsi untuk memperoleh Q*, lalu cek bahwa kedua fungsi menghasilkan kuantitas yang sama.</p>
+    </aside>
 
     <div class="math-reminder reveal">
       <span class="micro-label">Cek arah logika</span>

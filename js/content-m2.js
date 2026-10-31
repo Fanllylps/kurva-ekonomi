@@ -190,6 +190,11 @@ KURVA_CONTENT.m2 = `
       </div>
       <p class="loop-caption">Arah panah bisa bolak-balik. Kebijakan makro mengubah insentif mikro; jutaan respons mikro membentuk angka makro.</p>
     </div>
+
+    <aside class="uts-source-marker" id="uts-ref-m2-scope" tabindex="-1" aria-label="Rujukan UTS tentang cakupan materi bab 1 sampai 7">
+      <span class="micro-label">Kisi-kisi UTS · Bab 02</span>
+      <p><strong>Inti peta materi 1–7:</strong> kelangkaan dan pilihan (Bab 01), permintaan, penawaran, pasar, elastisitas, perilaku konsumen, dan biaya perusahaan (Bab 03–07) terutama membahas keputusan mikro. Bab 02 membantu membedakannya dari isu makro seperti PDB, inflasi, dan pengangguran.</p>
+    </aside>
   </section>
 
   <section class="lesson" id="m2-pelaku">

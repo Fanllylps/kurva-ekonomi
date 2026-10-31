@@ -486,6 +486,10 @@ KURVA_CONTENT.m4 = `
         <p>Dalam jangka sangat singkat, jumlah benar-benar tetap. Dalam jangka panjang, produsen bisa menambah mesin, pabrik, dan tenaga kerja, sehingga respons lebih besar.</p>
       </div>
     </div>
+    <aside class="uts-source-marker" id="uts-ref-m4-elasticity" tabindex="-1" aria-label="Rujukan UTS tentang elastisitas penawaran">
+      <span class="micro-label">Kisi-kisi UTS · Bab 04</span>
+      <p><strong>Inti jawaban:</strong> Es = persentase perubahan Qs ÷ persentase perubahan P. Es &gt; 1 berarti penawaran elastis: persentase respons jumlah yang ditawarkan lebih besar daripada persentase perubahan harga.</p>
+    </aside>
   </section>
 
   <section class="lesson" id="m4-cek">

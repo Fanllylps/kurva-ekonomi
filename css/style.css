@@ -12486,6 +12486,157 @@ input[type='range']:focus-visible {
   color: var(--ink);
 }
 
+.uts-source-marker {
+  position: relative;
+  margin: 1.25rem 0 0;
+  padding: 0.8rem 0.95rem;
+  border: 1px solid var(--line-strong);
+  border-left: 3px solid var(--accent);
+  background: var(--accent-wash);
+  scroll-margin: 7rem 0 2rem;
+  transition: outline-color 160ms ease, box-shadow 160ms ease;
+}
+
+.uts-source-marker .micro-label {
+  display: block;
+  margin-bottom: 0.35rem;
+  color: var(--accent-dark);
+}
+
+.uts-source-marker p {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 0.69rem;
+  line-height: 1.65;
+}
+
+.uts-source-marker.answer-focus {
+  z-index: 1;
+  outline: 2px solid var(--accent-dark);
+  outline-offset: 5px;
+  box-shadow: 0 0 0 10px color-mix(in srgb, var(--accent) 12%, transparent);
+}
+
+.uts-source-marker.answer-focus::after {
+  position: absolute;
+  top: -0.62rem;
+  right: 0.65rem;
+  padding: 0.2rem 0.38rem;
+  background: var(--accent-dark);
+  color: var(--paper-light);
+  content: 'JAWABAN KISI-KISI ADA DI SINI';
+  font-family: var(--font-mono);
+  font-size: 0.46rem;
+  letter-spacing: 0.045em;
+}
+
+.uts-source-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+  padding-top: 0.8rem;
+  border-top: 1px solid var(--line);
+}
+
+.uts-source-list > .micro-label {
+  flex: 0 0 100%;
+  color: var(--muted);
+}
+
+.uts-source-list > a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 34px;
+  padding: 0.4rem 0.6rem;
+  border: 1px solid var(--line-strong);
+  background: var(--paper-light);
+  color: var(--ink-soft);
+  font-family: var(--font-mono);
+  font-size: 0.54rem;
+  line-height: 1.4;
+  text-decoration: none;
+  transition: border-color 150ms ease, color 150ms ease, background 150ms ease;
+}
+
+.uts-source-list > a:hover,
+.uts-source-list > a:focus-visible {
+  border-color: var(--accent);
+  background: var(--accent-wash);
+  color: var(--accent-dark);
+}
+
+.uts-source-list-large {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.65rem;
+  border-top: 0;
+}
+
+.uts-source-list-large > a {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-content: start;
+  gap: 0.25rem 0.65rem;
+  min-height: 82px;
+  padding: 0.75rem;
+  font-family: var(--font-body);
+}
+
+.uts-source-list-large > a > span {
+  grid-column: 1 / -1;
+  color: var(--accent-dark);
+  font-family: var(--font-mono);
+  font-size: 0.48rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.uts-source-list-large > a > strong {
+  color: var(--ink);
+  font-size: 0.73rem;
+  font-weight: 650;
+}
+
+.uts-source-list-large > a > small {
+  grid-column: 1 / -1;
+  color: var(--muted);
+  font-size: 0.62rem;
+  line-height: 1.45;
+}
+
+.uts-external-sources {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5rem;
+  margin-top: 0.9rem;
+}
+
+.uts-external-sources a {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  padding: 0.65rem 0.7rem;
+  border: 1px solid var(--line);
+  color: var(--ink-soft);
+  font-size: 0.63rem;
+  line-height: 1.45;
+  text-decoration: none;
+}
+
+.uts-external-sources a:hover,
+.uts-external-sources a:focus-visible {
+  border-color: var(--accent);
+  background: var(--accent-wash);
+}
+
+.uts-external-sources strong {
+  color: var(--accent-dark);
+  font-family: var(--font-mono);
+  font-size: 0.5rem;
+  text-transform: uppercase;
+}
+
 @media (max-width: 820px) {
   .cost-lab-layout {
     grid-template-columns: minmax(0, 1fr);
@@ -12522,5 +12673,15 @@ input[type='range']:focus-visible {
     grid-column: 2;
     grid-row: 1 / span 2;
     text-align: right;
+  }
+
+  .uts-source-list-large,
+  .uts-external-sources {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .uts-source-marker.answer-focus::after {
+    right: 0.35rem;
+    font-size: 0.4rem;
   }
 }

@@ -233,6 +233,11 @@ KURVA_CONTENT.m5 = `
       <button type="button" class="btn btn-small stepper-next">Buka langkah 1 <span aria-hidden="true">↓</span></button>
     </div>
 
+    <aside class="uts-source-marker" id="uts-ref-m5-surplus" tabindex="-1" aria-label="Rujukan UTS tentang surplus konsumen dan produsen">
+      <span class="micro-label">Kisi-kisi UTS · Bab 05</span>
+      <p><strong>Inti jawaban:</strong> untuk kurva linear, SK = ½ × Qe × (Pmaks − Pe) dan SP = ½ × Qe × (Pe − Pmin). Jika P dinyatakan dalam ribu rupiah, hasil luas dikalikan Q adalah ribu rupiah; ubah satuan saat menulis jawaban akhir.</p>
+    </aside>
+
     <details class="disclosure">
       <summary>Contoh lain: P = 100 − 2Q dan P = 20 + 2Q <span aria-hidden="true">+</span></summary>
       <div class="disclosure-body">

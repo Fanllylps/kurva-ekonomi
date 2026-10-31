@@ -447,6 +447,10 @@ KURVA_CONTENT.m7 = `
       <span class="micro-label">Harga jangka panjang</span>
       <p>Jika perusahaan terus menjual di bawah ATC, penerimaan tidak menutup seluruh biaya rata-rata dan kerugian tidak dapat dipertahankan selamanya. Dalam model sederhana, harga setidaknya perlu menutup ATC untuk menghindari rugi jangka panjang.</p>
     </div>
+    <aside class="uts-source-marker" id="uts-ref-m7-costs" tabindex="-1" aria-label="Rujukan UTS tentang biaya produksi">
+      <span class="micro-label">Kisi-kisi UTS · Bab 07</span>
+      <p><strong>Inti jawaban:</strong> TC = FC + VC; AFC = FC/Q; AVC = VC/Q; ATC = TC/Q = AFC + AVC; MC = ΔTC/ΔQ. Jika diminta titik impas unit dan P serta v konstan, BEP = FC/(P − v).</p>
+    </aside>
   </section>
 
   <section class="lesson" id="m7-lab">

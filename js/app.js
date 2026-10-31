@@ -101,10 +101,15 @@
     if (hash === '#/rumus') {
       return { type: 'formula', id: 'rumus' };
     }
-    const match = hash.match(/^#\/materi\/([1-7])\/?$/);
+    if (hash === '#/uts') {
+      return { type: 'exam', id: 'uts' };
+    }
+    const match = hash.match(/^#\/materi\/([1-7])\/?(?:\?focus=([^&]+))?$/);
     if (match) {
       const moduleId = 'm' + match[1];
-      return { type: 'module', id: moduleId };
+      let focus = null;
+      try { focus = match[2] ? decodeURIComponent(match[2]) : null; } catch (error) { /* Ignore malformed focus targets. */ }
+      return { type: 'module', id: moduleId, focus: focus };
     }
     return { type: 'home', id: 'home' };
   }
@@ -116,14 +121,15 @@
   function getContent(route) {
     if (route.type === 'module') return window.KURVA_CONTENT[route.id];
     if (route.type === 'formula') return window.KURVA_CONTENT.rumus;
+    if (route.type === 'exam') return window.KURVA_CONTENT.uts;
     return window.KURVA_CONTENT.home;
   }
 
   function setAccent(route) {
     const root = document.documentElement;
     const module = route.type === 'module' ? getModule(route.id) : null;
-    const accent = module ? module.accent : route.type === 'formula' ? '#1f6a4b' : DEFAULT_ACCENT;
-    const accentDark = module ? module.accentDark : route.type === 'formula' ? '#164b36' : DEFAULT_ACCENT_DARK;
+    const accent = module ? module.accent : route.type === 'formula' ? '#1f6a4b' : route.type === 'exam' ? '#65518d' : DEFAULT_ACCENT;
+    const accentDark = module ? module.accentDark : route.type === 'formula' ? '#164b36' : route.type === 'exam' ? '#4b3a70' : DEFAULT_ACCENT_DARK;
     root.style.setProperty('--accent', accent);
     root.style.setProperty('--accent-dark', accentDark);
     document.body.dataset.route = route.id;
@@ -138,6 +144,8 @@
         : module.num + ' · ' + module.title + ' — Kurva';
     } else if (route.type === 'formula') {
       title = 'Lembar rumus — Kurva';
+    } else if (route.type === 'exam') {
+      title = 'Panduan kisi-kisi UTS — Kurva';
     }
     document.title = title;
   }
@@ -160,6 +168,12 @@
       formulaLink.classList.toggle('is-active', route.type === 'formula');
       if (route.type === 'formula') formulaLink.setAttribute('aria-current', 'page');
       else formulaLink.removeAttribute('aria-current');
+    }
+    const examLink = document.querySelector('[data-nav-exam]');
+    if (examLink) {
+      examLink.classList.toggle('is-active', route.type === 'exam');
+      if (route.type === 'exam') examLink.setAttribute('aria-current', 'page');
+      else examLink.removeAttribute('aria-current');
     }
     document.querySelectorAll('[data-rail]').forEach((link) => {
       const status = link.querySelector('.rail-status');
@@ -274,6 +288,15 @@
     const anchorId = window.location.hash && !window.location.hash.startsWith('#/')
       ? decodeURIComponent(window.location.hash.slice(1))
       : '';
+    if (route.type === 'module' && route.focus) {
+      requestAnimationFrame(() => {
+        const target = document.getElementById(route.focus);
+        if (!target) return;
+        target.classList.add('answer-focus');
+        if (typeof target.focus === 'function') target.focus({ preventScroll: true });
+        target.scrollIntoView({ behavior: wasInitial ? 'auto' : 'smooth', block: 'center' });
+      });
+    }
     if (anchorId) {
       requestAnimationFrame(() => {
         const target = document.getElementById(anchorId);

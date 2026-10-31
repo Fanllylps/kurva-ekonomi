@@ -239,6 +239,11 @@ KURVA_CONTENT.m1 = `
       </aside>
     </div>
 
+    <aside class="uts-source-marker" id="uts-ref-m1-scarcity" tabindex="-1" aria-label="Rujukan UTS tentang kelangkaan dan biaya peluang">
+      <span class="micro-label">Kisi-kisi UTS · Bab 01</span>
+      <p><strong>Inti jawaban:</strong> kelangkaan terjadi karena sumber daya terbatas dibanding keinginan. Saat memilih, biaya peluang adalah nilai alternatif terbaik yang dilepas—bukan seluruh alternatif dan bukan otomatis uang yang dibayar.</p>
+    </aside>
+
     <div class="needs-toggle reveal" aria-label="Kebutuhan atau keinginan">
       <div class="need-column">
         <span class="micro-label">Kebutuhan</span>
