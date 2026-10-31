@@ -1301,6 +1301,7 @@ section[id],
 .module-row[data-module-row='m4'] { --row-accent: #9a6414; }
 .module-row[data-module-row='m5'] { --row-accent: #8c3b4e; }
 .module-row[data-module-row='m6'] { --row-accent: #146d6e; }
+.module-row[data-module-row='m7'] { --row-accent: #65518d; }
 
 .module-link {
   position: relative;
@@ -12302,5 +12303,224 @@ input[type='range']:focus-visible {
 
   .module-copy > p {
     font-size: 0.67rem;
+  }
+}
+
+/* Meeting 07: production and cost break-even lab */
+.cost-lab-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(270px, 0.85fr);
+  gap: 1.2rem;
+  align-items: start;
+}
+
+.cost-lab-chart-panel,
+.cost-lab-controls {
+  min-width: 0;
+}
+
+.cost-chart-legend .legend-cost-revenue {
+  background: var(--accent-dark);
+}
+
+.cost-chart-legend .legend-cost-total {
+  background: var(--supply);
+}
+
+.chart-line-cost-revenue {
+  stroke: var(--accent-dark);
+}
+
+.chart-line-cost-total {
+  stroke: var(--supply);
+}
+
+.chart-curve-label-cost-revenue {
+  fill: var(--accent-dark);
+}
+
+.chart-curve-label-cost-total {
+  fill: var(--supply);
+}
+
+.cost-lab .control-block {
+  margin: 0 0 1rem;
+  padding: 0 0 0.8rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.cost-lab .control-block:first-child,
+.cost-lab .control-block:last-child {
+  padding-top: 0;
+}
+
+.cost-lab-stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.55rem;
+  margin-top: 1rem;
+}
+
+.cost-lab-stat {
+  min-width: 0;
+  padding: 0.7rem;
+  border: 1px solid var(--line);
+  background: var(--paper);
+}
+
+.cost-lab-stat .micro-label {
+  display: block;
+  min-height: 1.5em;
+  color: var(--muted);
+  font-size: 0.47rem;
+}
+
+.cost-lab-stat strong {
+  display: block;
+  margin-top: 0.35rem;
+  color: var(--accent-dark);
+  font-family: var(--font-display);
+  font-size: clamp(1.05rem, 2vw, 1.45rem);
+  font-weight: 400;
+  line-height: 1.15;
+  overflow-wrap: anywhere;
+}
+
+.cost-lab-stat strong.is-negative {
+  color: var(--bad, #a4371c);
+}
+
+.cost-lab-stat small {
+  display: block;
+  margin-top: 0.25rem;
+  color: var(--muted);
+  font-size: 0.55rem;
+  line-height: 1.4;
+}
+
+.cost-lab-chart-panel .sim-caption {
+  margin: 0.65rem 0 0;
+}
+
+.compare-card.abundance {
+  border-top: 4px solid var(--supply);
+}
+
+.compare-card.abundance .compare-key {
+  color: var(--supply);
+}
+
+.stages-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin-top: 1.6rem;
+}
+
+.stage-card {
+  min-width: 0;
+  padding: 1rem 1.05rem;
+  border: 1px solid var(--line-strong);
+  background: var(--paper-light);
+}
+
+.stage-card.stage-optimal {
+  border-color: var(--accent);
+  background: var(--accent-wash);
+}
+
+.stage-number {
+  display: inline-block;
+  margin-bottom: 0.8rem;
+  color: var(--accent-dark);
+  font-family: var(--font-mono);
+  font-size: 0.63rem;
+}
+
+.stage-card h3,
+.digital-cost-card h3 {
+  margin: 0 0 0.55rem;
+  font-family: var(--font-display);
+  font-size: 1.38rem;
+  font-weight: 400;
+  line-height: 1.15;
+}
+
+.stage-card p,
+.digital-cost-card p {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 0.69rem;
+  line-height: 1.62;
+}
+
+.digital-cost-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.digital-cost-card {
+  min-width: 0;
+  padding: 1rem 1.05rem;
+  border: 1px solid var(--line);
+  background: var(--paper-light);
+}
+
+.digital-cost-card .factor-tag {
+  display: inline-block;
+  margin-bottom: 0.6rem;
+  color: var(--accent-dark);
+  font-family: var(--font-mono);
+  font-size: 0.52rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.digital-cost-card p + p {
+  margin-top: 0.45rem;
+}
+
+.digital-cost-card strong {
+  color: var(--ink);
+}
+
+@media (max-width: 820px) {
+  .cost-lab-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .stages-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 520px) {
+  .stages-grid,
+  .digital-cost-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .cost-lab-stats {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .cost-lab-stat {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 0.2rem 0.6rem;
+  }
+
+  .cost-lab-stat .micro-label,
+  .cost-lab-stat small {
+    grid-column: 1;
+  }
+
+  .cost-lab-stat strong {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    text-align: right;
   }
 }

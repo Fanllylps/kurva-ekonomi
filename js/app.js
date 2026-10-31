@@ -7,7 +7,8 @@
     { id: 'm3', num: '03', short: 'Permintaan & penawaran', title: 'Permintaan, penawaran & keseimbangan', accent: '#1f6a4b', accentDark: '#164b36' },
     { id: 'm4', num: '04', short: 'Elastisitas', title: 'Elastisitas permintaan & penawaran', accent: '#9a6414', accentDark: '#744a0c' },
     { id: 'm5', num: '05', short: 'Pasar & surplus', title: 'Pasar, surplus & intervensi', accent: '#8c3b4e', accentDark: '#662838' },
-    { id: 'm6', num: '06', short: 'Perilaku konsumen', title: 'Perilaku konsumen', accent: '#146d6e', accentDark: '#0e4f50' }
+    { id: 'm6', num: '06', short: 'Perilaku konsumen', title: 'Perilaku konsumen', accent: '#146d6e', accentDark: '#0e4f50' },
+    { id: 'm7', num: '07', short: 'Produksi & biaya', title: 'Produksi dan biaya produksi', accent: '#65518d', accentDark: '#4b3a70' }
   ];
 
   const STORAGE_KEY = 'kurva-econ-progress-v1';
@@ -100,7 +101,7 @@
     if (hash === '#/rumus') {
       return { type: 'formula', id: 'rumus' };
     }
-    const match = hash.match(/^#\/materi\/([1-6])\/?$/);
+    const match = hash.match(/^#\/materi\/([1-7])\/?$/);
     if (match) {
       const moduleId = 'm' + match[1];
       return { type: 'module', id: moduleId };
@@ -214,12 +215,12 @@
 
     const start = document.getElementById('startCourse');
     if (start) {
-      const next = state.done.length === 6
+      const next = state.done.length === MODULES.length
         ? MODULES[0]
         : MODULES.find((module) => !isDone(module.id)) || MODULES[0];
       const label = start.querySelector('span');
       if (label) {
-        if (state.done.length === 6) label.textContent = 'Ulang dari pertemuan 01';
+        if (state.done.length === MODULES.length) label.textContent = 'Ulang dari pertemuan 01';
         else if (state.last === next.id) label.textContent = 'Lanjutkan pertemuan ' + next.num;
         else if (state.done.length > 0) label.textContent = 'Lanjut ke pertemuan ' + next.num;
         else label.textContent = 'Mulai pertemuan ' + next.num;
@@ -295,7 +296,7 @@
         if (next) {
           const module = getModule(id);
           if (state.done.length === MODULES.length) {
-            showToast('Enam pertemuan selesai. Saatnya buka lembar rumus.');
+            showToast('Semua pertemuan selesai. Saatnya buka lembar rumus.');
           } else {
             showToast(module ? module.title + ' ditandai selesai.' : 'Pertemuan ditandai selesai.');
           }

@@ -13,7 +13,7 @@ KURVA_CONTENT.home = `
       </a>
       <a class="home-choose-link" href="#materi-index">Pilih pertemuan <span aria-hidden="true">↓</span></a>
     </div>
-    <p class="home-overview">6 pertemuan <span aria-hidden="true">·</span> simulasi <span aria-hidden="true">·</span> latihan</p>
+    <p class="home-overview">7 pertemuan <span aria-hidden="true">·</span> simulasi <span aria-hidden="true">·</span> latihan</p>
   </div>
 </section>
 
@@ -89,6 +89,17 @@ KURVA_CONTENT.home = `
           <div class="module-meta"><span>21 menit</span><span class="completion" data-completion="m6">Belum selesai</span></div>
           <h3>Perilaku konsumen</h3>
           <p>Utilitas, anggaran, dan pilihan konsumen.</p>
+        </div>
+        <span class="module-enter" aria-hidden="true"><svg viewBox="0 0 20 20"><path d="M4 10h11M11 5l5 5-5 5"/></svg></span>
+      </a>
+    </li>
+    <li class="module-row" data-module-row="m7">
+      <a class="module-link" href="#/materi/7">
+        <span class="module-number">07</span>
+        <div class="module-copy">
+          <div class="module-meta"><span>26 menit</span><span class="completion" data-completion="m7">Belum selesai</span></div>
+          <h3>Produksi dan biaya produksi</h3>
+          <p>Faktor produksi, produktivitas, biaya, dan titik impas.</p>
         </div>
         <span class="module-enter" aria-hidden="true"><svg viewBox="0 0 20 20"><path d="M4 10h11M11 5l5 5-5 5"/></svg></span>
       </a>

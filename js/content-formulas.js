@@ -6,7 +6,7 @@ KURVA_CONTENT.rumus = `
     <div class="chapter-kicker"><a href="#/">Indeks materi</a><span>/</span><span>Lembar rumus</span></div>
     <div class="chapter-title-row">
       <div>
-        <p class="eyebrow">Panduan belajar · pertemuan 1–6</p>
+        <p class="eyebrow">Panduan belajar · pertemuan 1–7</p>
         <h1>Rumus ekonomi, <em>dibaca pelan-pelan.</em></h1>
         <p class="chapter-lead">Huruf dan singkatan di rumus bukan kode rahasia. Mulai dari kamus simbol, ikuti contoh hitungnya, lalu lihat gambar untuk memahami ceritanya.</p>
       </div>
@@ -28,7 +28,8 @@ KURVA_CONTENT.rumus = `
     <a href="#f-elastisitas">03 · Elastisitas</a>
     <a href="#f-surplus">04 · Surplus</a>
     <a href="#f-konsumen">05 · Konsumen</a>
-    <a href="#f-jebakan">Jebakan ujian</a>
+    <a href="#f-produksi">06 · Produksi &amp; biaya</a>
+    <a href="#f-jebakan">07 · Jebakan ujian</a>
   </nav>
 
   <section class="formula-section formula-glossary" id="f-kamus">
@@ -113,6 +114,21 @@ KURVA_CONTENT.rumus = `
         <div><dt>TU</dt><dd><strong>Utilitas total:</strong> seluruh kepuasan dari jumlah barang yang dikonsumsi.</dd></div>
         <div><dt>MU</dt><dd><strong>Utilitas marginal</strong> (<i>marginal utility</i>): tambahan kepuasan dari satu unit barang berikutnya. Sederhananya: “tambahan puasnya berapa?”</dd></div>
         <div><dt>MRS</dt><dd><strong>Tingkat kesediaan menukar barang</strong> (<i>marginal rate of substitution</i>): berapa Y yang rela dilepas untuk mendapat satu X tambahan, dengan kepuasan tetap.</dd></div>
+      </dl>
+    </div>
+
+    <div class="formula-glossary-block">
+      <h3>Produksi dan biaya</h3>
+      <dl class="symbol-grid">
+        <div><dt>Q</dt><dd><strong>Jumlah output</strong> yang diproduksi. Arti simbol dapat berbeda menurut konteks bab.</dd></div>
+        <div><dt>K · L · R · T</dt><dd><strong>Input fungsi produksi:</strong> modal, tenaga kerja, sumber daya alam/material, dan teknologi.</dd></div>
+        <div><dt>TP · AP · MP</dt><dd><strong>Produk total, rata-rata, dan marginal.</strong> MP = ΔTP ÷ ΔL; tambahan output dari tambahan tenaga kerja.</dd></div>
+        <div><dt>FC · VC · TC</dt><dd><strong>Biaya tetap, variabel, dan total.</strong> TC = FC + VC; jika v konstan, VC = vQ.</dd></div>
+        <div><dt>AFC · AVC · ATC</dt><dd><strong>Biaya tetap, variabel, dan total rata-rata.</strong> ATC = AFC + AVC.</dd></div>
+        <div><dt>MC</dt><dd><strong>Biaya marginal</strong> (<i>marginal cost</i>): perubahan biaya total akibat perubahan output.</dd></div>
+        <div><dt>MR</dt><dd><strong>Penerimaan marginal</strong> (<i>marginal revenue</i>): tambahan penerimaan dari penjualan output tambahan.</dd></div>
+        <div><dt>BEP</dt><dd><strong>Titik impas</strong> (<i>break-even point</i>): jumlah output saat penerimaan total sama dengan biaya total.</dd></div>
+        <div><dt>v</dt><dd><strong>Biaya variabel per unit.</strong> Pada BEP unit, kontribusi per unit = P − v.</dd></div>
       </dl>
     </div>
 
@@ -381,9 +397,71 @@ KURVA_CONTENT.rumus = `
     </div>
   </section>
 
-  <section class="formula-section" id="f-jebakan">
+  <section class="formula-section" id="f-produksi">
     <header class="formula-section-head">
       <span>06</span>
+      <div><p class="eyebrow">Produksi, biaya, dan titik impas</p><h2>Input menjadi output; output menentukan biaya.</h2></div>
+    </header>
+    <div class="formula-card-grid">
+      <article class="formula-sheet-card">
+        <span class="sheet-label">Fungsi produksi</span>
+        <p class="formula-main"><i>Q</i> = <i>f</i>(<i>K</i>, <i>L</i>, <i>R</i>, <i>T</i>)</p>
+        <p>Jumlah output bergantung pada modal, tenaga kerja, sumber daya/material, dan teknologi yang dipakai.</p>
+      </article>
+      <article class="formula-sheet-card">
+        <span class="sheet-label">Produktivitas</span>
+        <p class="formula-main">Produktivitas = <span class="frac"><span>Output</span><span>Input</span></span></p>
+        <p>Nyatakan jenis input dan satuannya. Contoh: paket per jam kerja.</p>
+      </article>
+      <article class="formula-sheet-card">
+        <span class="sheet-label">Produk marginal</span>
+        <p class="formula-main"><i>MP</i> = <span class="frac"><span>Δ<i>TP</i></span><span>Δ<i>L</i></span></span></p>
+        <p>Tambahan output dari tambahan tenaga kerja. MP menurun tidak otomatis berarti TP turun.</p>
+      </article>
+      <article class="formula-sheet-card">
+        <span class="sheet-label">Biaya total</span>
+        <p class="formula-main"><i>TC</i> = <i>FC</i> + <i>VC</i> = <i>FC</i> + <i>vQ</i></p>
+        <p>Bentuk terakhir berlaku saat biaya variabel per unit v konstan. Pada Q = 0, TC = FC.</p>
+      </article>
+      <article class="formula-sheet-card">
+        <span class="sheet-label">Biaya rata-rata</span>
+        <p class="formula-main"><i>AFC</i> = <span class="frac"><span><i>FC</i></span><span><i>Q</i></span></span></p>
+        <p class="formula-main"><i>ATC</i> = <i>AFC</i> + <i>AVC</i></p>
+        <p>Biaya tetap per unit turun ketika FC dibagi ke lebih banyak unit.</p>
+      </article>
+      <article class="formula-sheet-card">
+        <span class="sheet-label">Biaya marginal</span>
+        <p class="formula-main"><i>MC</i> = <span class="frac"><span>Δ<i>TC</i></span><span>Δ<i>Q</i></span></span> = <span class="frac"><span>Δ<i>VC</i></span><span>Δ<i>Q</i></span></span></p>
+        <p>FC tidak berubah saat output berubah, jadi perubahan TC berasal dari VC. Jika TC berupa fungsi kontinu, MC = dTC/dQ.</p>
+      </article>
+      <article class="formula-sheet-card accent-sheet">
+        <span class="sheet-label">Titik impas · unit</span>
+        <p class="formula-main"><i>BEP</i> = <span class="frac"><span><i>FC</i></span><span><i>P</i> − <i>v</i></span></span></p>
+        <p>Gunakan kontribusi per unit P − v. Jika hasil pecahan unit, bulatkan ke atas untuk jumlah minimum yang tidak rugi.</p>
+        <a href="#/materi/7">Lab titik impas →</a>
+      </article>
+      <article class="formula-sheet-card">
+        <span class="sheet-label">Hubungan laba</span>
+        <p class="formula-main">Laba = TR − TC</p>
+        <p>Jika harga tetap, TR = P × Q. Dengan VC = vQ, laba = (P − v)Q − FC.</p>
+      </article>
+    </div>
+    <div class="formula-worked">
+      <div class="worked-heading"><span class="micro-label">Contoh dari pertemuan 07</span><h3>Berapa pengguna aplikasi agar biaya tertutup?</h3></div>
+      <div class="market-walkthrough">
+        <div><span class="walk-no">01</span><strong>Kontribusi per pengguna</strong><code>Rp50.000 − Rp20.000 = Rp30.000</code><p>Harga dikurangi biaya variabel per pengguna.</p></div>
+        <span class="reading-arrow" aria-hidden="true">→</span>
+        <div><span class="walk-no">02</span><strong>Hitung jumlah impas</strong><code>Rp100.000.000 ÷ Rp30.000 = 3.333,33</code><p>Biaya tetap dibagi kontribusi per pengguna.</p></div>
+        <span class="reading-arrow" aria-hidden="true">→</span>
+        <div class="market-walk-result"><span class="walk-no">03</span><strong>Bulatkan ke atas</strong><code>Minimum 3.334 pengguna</code><p>Di bawah jumlah itu, penerimaan belum menutup seluruh biaya.</p></div>
+      </div>
+      <p class="worked-explanation">Pada 10.000 pengguna, TR = Rp500 juta dan TC = Rp100 juta + Rp200 juta = Rp300 juta. Laba model = Rp200 juta per bulan, sebelum pajak dan biaya lain yang tidak dicakup contoh.</p>
+    </div>
+  </section>
+
+  <section class="formula-section" id="f-jebakan">
+    <header class="formula-section-head">
+      <span>07</span>
       <div><p class="eyebrow">Pemeriksaan terakhir</p><h2>Delapan jebakan sebelum ujian.</h2></div>
     </header>
     <ol class="exam-traps">
@@ -401,7 +479,7 @@ KURVA_CONTENT.rumus = `
   <footer class="formula-footer">
     <div>
       <span class="micro-label">Sumber materi</span>
-      <p>Disusun dari bahan ajar Pertemuan 1–6 Pengantar Ekonomi, dengan rujukan Mankiw, <em>Principles of Economics</em>; Sukirno, <em>Pengantar Teori Mikroekonomi</em>; serta Case, Fair &amp; Oster.</p>
+      <p>Disusun dari bahan ajar Pertemuan 1–7 Pengantar Ekonomi, termasuk materi Produksi dan Biaya Produksi, dengan rujukan Mankiw, <em>Principles of Economics</em>; Pindyck dan Rubinfeld, <em>Microeconomics</em>; Sukirno, <em>Pengantar Teori Mikroekonomi</em>; serta Case, Fair &amp; Oster.</p>
     </div>
     <a class="btn btn-dark" href="#/materi/1">Ulang dari pertemuan 01 <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11M11 5l5 5-5 5"/></svg></a>
   </footer>

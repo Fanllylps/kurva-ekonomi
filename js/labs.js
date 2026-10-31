@@ -1466,6 +1466,115 @@
   }
 
   /* ------------------------------------------------------------------
+     Meeting 7: production costs and break-even point
+     ------------------------------------------------------------------ */
+
+  function drawProductionCostChart(width, height, fixedCost) {
+    const frame = chartFrame(width, height, {
+      xMax: 10000,
+      yMax: 550,
+      xTicks: [0, 2500, 5000, 7500, 10000],
+      yTicks: [0, 100, 200, 300, 400, 500],
+      xLabel: 'Pengguna / bulan',
+      yLabel: 'Rp juta / bulan'
+    });
+    const clip = chartClip(frame);
+    const variableCost = 20000;
+    const price = 50000;
+    const breakEven = fixedCost * 1000000 / (price - variableCost);
+    const breakEvenCost = fixedCost + (variableCost * breakEven / 1000000);
+    let inner = clip.defs;
+    inner += '<g clip-path="url(#' + clip.id + ')">';
+    inner += '<path class="chart-line chart-line-cost-revenue" d="' + pathFrom([
+      [frame.sx(0), frame.sy(0)],
+      [frame.sx(10000), frame.sy(price * 10000 / 1000000)]
+    ]) + '"/>';
+    inner += '<path class="chart-line chart-line-cost-total" d="' + pathFrom([
+      [frame.sx(0), frame.sy(fixedCost)],
+      [frame.sx(10000), frame.sy(fixedCost + variableCost * 10000 / 1000000)]
+    ]) + '"/>';
+    inner += '</g>';
+
+    const bx = frame.sx(breakEven);
+    const by = frame.sy(breakEvenCost);
+    inner += '<line class="chart-guide" x1="' + bx.toFixed(2) + '" y1="' + by.toFixed(2) + '" x2="' + bx.toFixed(2) + '" y2="' + frame.bottom + '"/>';
+    inner += '<line class="chart-guide" x1="' + frame.left + '" y1="' + by.toFixed(2) + '" x2="' + bx.toFixed(2) + '" y2="' + by.toFixed(2) + '"/>';
+    inner += '<circle class="chart-eq-halo" cx="' + bx.toFixed(2) + '" cy="' + by.toFixed(2) + '" r="14"/>';
+    inner += '<circle class="chart-eq" cx="' + bx.toFixed(2) + '" cy="' + by.toFixed(2) + '" r="5.5"/>';
+    inner += '<text class="chart-point-label" x="' + (bx + 9).toFixed(2) + '" y="' + (by - 11).toFixed(2) + '">BEP</text>';
+    inner += '<text class="chart-curve-label chart-curve-label-cost-revenue" x="' + (frame.right - 20) + '" y="' + (frame.sy(500) - 9).toFixed(2) + '">TR</text>';
+    inner += '<text class="chart-curve-label chart-curve-label-cost-total" x="' + (frame.right - 20) + '" y="' + (frame.sy(fixedCost + 200) - 9).toFixed(2) + '">TC</text>';
+    return inner + frame.markup;
+  }
+
+  function initProductionCostLab() {
+    const lab = $('#lab-production-cost');
+    if (!lab) return;
+
+    const fixedInput = $('[data-m7-fixed-cost]', lab);
+    const quantityInput = $('[data-m7-quantity]', lab);
+    const fixedOutput = $('[data-m7-fc-out]', lab);
+    const quantityOutput = $('[data-m7-q-out]', lab);
+    const breakEvenOutput = $('[data-m7-bep]', lab);
+    const revenueOutput = $('[data-m7-tr]', lab);
+    const profitOutput = $('[data-m7-profit]', lab);
+    const totalCostOutput = $('[data-m7-tc]', lab);
+    const note = $('[data-m7-cost-note]', lab);
+    const price = 50000;
+    const variableCost = 20000;
+    const contribution = price - variableCost;
+
+    const chart = mountChart($('[data-m7-cost-plot]', lab), (width, height) => {
+      return drawProductionCostChart(width, height, Number(fixedInput.value));
+    }, {
+      ratio: 0.58,
+      min: 260,
+      max: 420,
+      label: () => {
+        const fixed = Number(fixedInput.value);
+        const quantity = Number(quantityInput.value);
+        const breakEven = Math.ceil(fixed * 1000000 / contribution);
+        return 'Grafik penerimaan total dan biaya total. Titik impas pada sekitar ' + num(breakEven) + ' pengguna per bulan; jumlah saat ini ' + num(quantity) + ' pengguna.';
+      }
+    });
+
+    function render() {
+      const fixed = Number(fixedInput.value);
+      const quantity = Number(quantityInput.value);
+      const breakEven = fixed * 1000000 / contribution;
+      const roundedBreakEven = Math.ceil(breakEven);
+      const revenue = price * quantity;
+      const totalCost = fixed * 1000000 + variableCost * quantity;
+      const profit = revenue - totalCost;
+
+      if (fixedOutput) fixedOutput.textContent = rupiah(fixed * 1000000);
+      if (quantityOutput) quantityOutput.textContent = num(quantity, 0);
+      if (breakEvenOutput) breakEvenOutput.textContent = num(roundedBreakEven, 0);
+      if (revenueOutput) revenueOutput.textContent = rupiah(revenue);
+      if (totalCostOutput) totalCostOutput.textContent = 'Biaya total ' + rupiah(totalCost);
+      if (profitOutput) {
+        profitOutput.textContent = profit < 0 ? '−' + rupiah(Math.abs(profit)) : rupiah(profit);
+        profitOutput.classList.toggle('is-negative', profit < 0);
+      }
+      if (note) {
+        if (profit > 0) {
+          note.textContent = 'Pada ' + num(quantity, 0) + ' pengguna, penerimaan melebihi biaya total sebesar ' + rupiah(profit) + '. Setiap pengguna tambahan menyumbang Rp30.000 pada asumsi model ini.';
+        } else if (profit < 0) {
+          note.textContent = 'Pada ' + num(quantity, 0) + ' pengguna, penerimaan masih di bawah biaya total. Usaha perlu sekitar ' + num(roundedBreakEven, 0) + ' pengguna agar impas.';
+        } else {
+          note.textContent = 'Penerimaan sama dengan biaya total: usaha tepat berada di titik impas.';
+        }
+      }
+      paintRange(fixedInput);
+      paintRange(quantityInput);
+      if (chart) chart.render();
+    }
+
+    [fixedInput, quantityInput].forEach((input) => input.addEventListener('input', render));
+    render();
+  }
+
+  /* ------------------------------------------------------------------
      Boot
      ------------------------------------------------------------------ */
 
@@ -1486,6 +1595,7 @@
         initBiteLab();
         initConsumerLab();
       }
+      if (route.id === 'm7') initProductionCostLab();
     } catch (error) {
       if (window.console && console.error) console.error('Kurva lab error:', error);
     }

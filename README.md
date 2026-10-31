@@ -1,6 +1,6 @@
 # Kurva — Lab Pengantar Ekonomi
 
-Situs belajar interaktif untuk materi Pengantar Ekonomi semester 1, pertemuan 1–6. Materi, visualisasi, kuis, dan kalkulator dibuat dengan HTML, CSS, dan JavaScript lokal tanpa framework atau proses build.
+Situs belajar interaktif untuk materi Pengantar Ekonomi semester 1, pertemuan 1–7. Materi, visualisasi, kuis, dan kalkulator dibuat dengan HTML, CSS, dan JavaScript lokal tanpa framework atau proses build.
 
 ## Menjalankan secara lokal
 
