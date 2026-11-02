@@ -34,6 +34,18 @@
           <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 9.5 10 3l7 6.5V17h-5v-4H8v4H3Z"/></svg>
           <span>Beranda</span>
         </a>
+        <div class="rail-search" data-search>
+          <label class="micro-label" for="globalSearch">Cari materi</label>
+          <form class="rail-search-form" data-search-form role="search">
+            <div class="rail-search-field">
+              <svg class="rail-search-icon" viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.8" cy="8.8" r="5.8"/><path d="m13.2 13.2 4 4"/></svg>
+              <input id="globalSearch" class="rail-search-input" data-search-input type="search" placeholder="Contoh: elastisitas" autocomplete="off" aria-controls="searchResults" aria-expanded="false">
+              <button type="button" class="rail-search-clear" data-search-clear aria-label="Hapus pencarian" hidden>×</button>
+            </div>
+          </form>
+          <div class="rail-search-results" id="searchResults" data-search-results role="listbox" aria-label="Hasil pencarian" hidden></div>
+          <span class="search-status" data-search-status role="status" aria-live="polite"></span>
+        </div>
         <div class="rail-label-row">
           <span class="micro-label">Materi kuliah</span>
           <span class="rail-label-rule"></span>
@@ -79,6 +91,9 @@
       </a>
       <div class="mobile-top-actions">
         <span class="mobile-progress" data-mobile-progress>0/7</span>
+        <button type="button" class="search-open-button" data-search-open aria-label="Cari materi">
+          <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.8" cy="8.8" r="5.8"/><path d="m13.2 13.2 4 4"/></svg>
+        </button>
         <button type="button" class="menu-button" data-rail-open aria-label="Buka menu materi" aria-expanded="false" aria-controls="rail">
           <span></span><span></span>
         </button>

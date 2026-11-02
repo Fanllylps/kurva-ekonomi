@@ -10,6 +10,14 @@
     { id: 'm6', num: '06', short: 'Perilaku konsumen', title: 'Perilaku konsumen', accent: '#146d6e', accentDark: '#0e4f50' },
     { id: 'm7', num: '07', short: 'Produksi & biaya', title: 'Produksi dan biaya produksi', accent: '#65518d', accentDark: '#4b3a70' }
   ];
+  const SEARCH_PAGES = MODULES.map((module) => ({
+    id: module.id,
+    route: '#/materi/' + module.id.slice(1),
+    title: 'Pertemuan ' + module.num + ' · ' + module.title
+  })).concat([
+    { id: 'uts', route: '#/uts', title: 'Panduan kisi-kisi UTS' },
+    { id: 'rumus', route: '#/rumus', title: 'Lembar rumus' }
+  ]);
 
   const STORAGE_KEY = 'kurva-econ-progress-v1';
   const DEFAULT_ACCENT = '#d94f2b';
@@ -21,6 +29,8 @@
   let revealObserver = null;
   let toastTimer = null;
   let previousFocus = null;
+  let searchIndex = [];
+  let activeSearchResult = -1;
 
   function loadState() {
     const fallback = { done: [], last: null };
@@ -98,18 +108,18 @@
     if (hash === '#/' || hash === '#' || hash === '') {
       return { type: 'home', id: 'home' };
     }
-    if (hash === '#/rumus') {
-      return { type: 'formula', id: 'rumus' };
-    }
-    if (hash === '#/uts') {
-      return { type: 'exam', id: 'uts' };
-    }
     const match = hash.match(/^#\/materi\/([1-7])\/?(?:\?focus=([^&]+))?$/);
     if (match) {
       const moduleId = 'm' + match[1];
       let focus = null;
       try { focus = match[2] ? decodeURIComponent(match[2]) : null; } catch (error) { /* Ignore malformed focus targets. */ }
       return { type: 'module', id: moduleId, focus: focus };
+    }
+    const specialMatch = hash.match(/^#\/(rumus|uts)\/?(?:\?focus=([^&]+))?$/);
+    if (specialMatch) {
+      let focus = null;
+      try { focus = specialMatch[2] ? decodeURIComponent(specialMatch[2]) : null; } catch (error) { /* Ignore malformed focus targets. */ }
+      return { type: specialMatch[1] === 'uts' ? 'exam' : 'formula', id: specialMatch[1], focus: focus };
     }
     return { type: 'home', id: 'home' };
   }
@@ -123,6 +133,96 @@
     if (route.type === 'formula') return window.KURVA_CONTENT.rumus;
     if (route.type === 'exam') return window.KURVA_CONTENT.uts;
     return window.KURVA_CONTENT.home;
+  }
+
+  function normalizeSearchText(value) {
+    return String(value || '')
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, ' ')
+      .trim();
+  }
+
+  function buildSearchIndex() {
+    const records = [];
+    const parser = new DOMParser();
+
+    SEARCH_PAGES.forEach((page, pageOrder) => {
+      const markup = window.KURVA_CONTENT[page.id];
+      if (typeof markup !== 'string') return;
+      const documentPage = parser.parseFromString(markup, 'text/html');
+
+      function addRecord(id, title, text, priority) {
+        const cleanText = String(text || '').replace(/\s+/g, ' ').trim();
+        const normalizedText = normalizeSearchText(cleanText);
+        if (!normalizedText) return;
+        records.push({
+          id: id,
+          route: page.route,
+          pageTitle: page.title,
+          title: String(title || page.title).replace(/\s+/g, ' ').trim(),
+          text: cleanText,
+          normalizedText: normalizedText,
+          normalizedTitle: normalizeSearchText(title || page.title),
+          priority: priority || 0,
+          pageOrder: pageOrder
+        });
+      }
+
+      const cover = documentPage.querySelector('.chapter-hero');
+      if (cover) {
+        const heading = cover.querySelector('h1');
+        addRecord(null, heading ? heading.textContent : page.title, cover.innerText || cover.textContent, 0);
+      }
+
+      documentPage.querySelectorAll('section[id]').forEach((section) => {
+        const heading = section.querySelector('h1, h2, h3, h4');
+        addRecord(section.id, heading ? heading.textContent : section.id, section.innerText || section.textContent, 1);
+      });
+    });
+
+    return records;
+  }
+
+  function makeSearchSnippet(text, tokens) {
+    const lowerText = text.toLowerCase();
+    const matchAt = tokens.reduce((best, token) => {
+      const position = lowerText.indexOf(token);
+      return position >= 0 && (best < 0 || position < best) ? position : best;
+    }, -1);
+    let start = matchAt < 0 ? 0 : Math.max(0, matchAt - 48);
+    if (start > 0) {
+      const wordStart = text.indexOf(' ', start);
+      if (wordStart >= 0 && wordStart < start + 18) start = wordStart + 1;
+    }
+    let end = Math.min(text.length, start + 150);
+    if (end < text.length) {
+      const wordEnd = text.lastIndexOf(' ', end);
+      if (wordEnd > start + 100) end = wordEnd;
+    }
+    return (start > 0 ? '…' : '') + text.slice(start, end).trim() + (end < text.length ? '…' : '');
+  }
+
+  function findSearchResults(query) {
+    const normalizedQuery = normalizeSearchText(query);
+    const tokens = normalizedQuery.split(' ').filter(Boolean);
+    if (normalizedQuery.length < 2 || !tokens.length) return [];
+
+    return searchIndex.map((entry) => {
+      if (!tokens.every((token) => entry.normalizedText.includes(token))) return null;
+      let score = entry.priority;
+      tokens.forEach((token) => {
+        score += entry.normalizedTitle.includes(token) ? 14 : 2;
+      });
+      if (entry.normalizedTitle.includes(normalizedQuery)) score += 32;
+      if (entry.normalizedText.includes(normalizedQuery)) score += 12;
+      return {
+        entry: entry,
+        score: score,
+        snippet: makeSearchSnippet(entry.text, tokens)
+      };
+    }).filter(Boolean).sort((a, b) => b.score - a.score || a.entry.pageOrder - b.entry.pageOrder);
   }
 
   function setAccent(route) {
@@ -243,6 +343,15 @@
     }
   }
 
+  function focusSearchTarget(target, behavior) {
+    if (!target) return;
+    if (!target.hasAttribute('tabindex')) target.setAttribute('tabindex', '-1');
+    target.classList.add('search-focus');
+    target.focus({ preventScroll: true });
+    target.scrollIntoView({ behavior: behavior || 'smooth', block: 'start' });
+    window.setTimeout(() => target.classList.remove('search-focus'), 2600);
+  }
+
   function renderRoute(options) {
     const opts = options || {};
     const route = getRoute();
@@ -288,13 +397,10 @@
     const anchorId = window.location.hash && !window.location.hash.startsWith('#/')
       ? decodeURIComponent(window.location.hash.slice(1))
       : '';
-    if (route.type === 'module' && route.focus) {
+    if (route.focus) {
       requestAnimationFrame(() => {
         const target = document.getElementById(route.focus);
-        if (!target) return;
-        target.classList.add('answer-focus');
-        if (typeof target.focus === 'function') target.focus({ preventScroll: true });
-        target.scrollIntoView({ behavior: wasInitial ? 'auto' : 'smooth', block: 'center' });
+        focusSearchTarget(target, wasInitial ? 'auto' : 'smooth');
       });
     }
     if (anchorId) {
@@ -525,6 +631,156 @@
     showToast('Progres belajar direset.');
   }
 
+  function closeSearchResults() {
+    const input = document.querySelector('[data-search-input]');
+    const results = document.querySelector('[data-search-results]');
+    const status = document.querySelector('[data-search-status]');
+    if (results) {
+      results.hidden = true;
+      results.replaceChildren();
+    }
+    if (input) {
+      input.setAttribute('aria-expanded', 'false');
+      input.removeAttribute('aria-activedescendant');
+    }
+    if (status) status.textContent = '';
+    activeSearchResult = -1;
+  }
+
+  function setActiveSearchResult(index) {
+    const input = document.querySelector('[data-search-input]');
+    const results = document.querySelector('[data-search-results]');
+    if (!input || !results) return;
+    const buttons = Array.from(results.querySelectorAll('[data-search-result]'));
+    if (!buttons.length) return;
+    activeSearchResult = (index + buttons.length) % buttons.length;
+    buttons.forEach((button, buttonIndex) => {
+      const active = buttonIndex === activeSearchResult;
+      button.classList.toggle('is-active', active);
+      button.setAttribute('aria-selected', String(active));
+    });
+    input.setAttribute('aria-activedescendant', buttons[activeSearchResult].id);
+    buttons[activeSearchResult].scrollIntoView({ block: 'nearest' });
+  }
+
+  function selectSearchResult(entry) {
+    const input = document.querySelector('[data-search-input]');
+    const clear = document.querySelector('[data-search-clear]');
+    const href = entry.route + (entry.id ? '?focus=' + encodeURIComponent(entry.id) : '');
+    closeSearchResults();
+    if (input) input.value = '';
+    if (clear) clear.hidden = true;
+    closeRail(false);
+
+    if ((window.location.hash || '#/') === href) {
+      if (entry.id) focusSearchTarget(document.getElementById(entry.id), 'smooth');
+      else window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+    window.location.hash = href;
+  }
+
+  function renderSearchResults() {
+    const input = document.querySelector('[data-search-input]');
+    const clear = document.querySelector('[data-search-clear]');
+    const results = document.querySelector('[data-search-results]');
+    const status = document.querySelector('[data-search-status]');
+    if (!input || !results || !status) return;
+
+    const query = input.value.trim();
+    if (clear) clear.hidden = !query;
+    if (query.length < 2) {
+      closeSearchResults();
+      return;
+    }
+
+    const matches = findSearchResults(query);
+    const shown = matches.slice(0, 6);
+    results.replaceChildren();
+    results.hidden = false;
+    input.setAttribute('aria-expanded', 'true');
+    input.removeAttribute('aria-activedescendant');
+    activeSearchResult = -1;
+
+    if (!shown.length) {
+      const empty = document.createElement('p');
+      empty.className = 'search-empty';
+      empty.textContent = 'Tidak ada materi yang cocok. Coba kata kunci lain.';
+      results.appendChild(empty);
+      status.textContent = 'Tidak ada hasil untuk ' + query + '.';
+      return;
+    }
+
+    shown.forEach((match, index) => {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.id = 'search-result-' + index;
+      button.className = 'search-result';
+      button.dataset.searchResult = String(index);
+      button.setAttribute('role', 'option');
+      button.setAttribute('aria-selected', 'false');
+
+      const page = document.createElement('span');
+      page.className = 'search-result-page';
+      page.textContent = match.entry.pageTitle;
+      const title = document.createElement('strong');
+      title.className = 'search-result-title';
+      title.textContent = match.entry.title;
+      const snippet = document.createElement('span');
+      snippet.className = 'search-result-snippet';
+      snippet.textContent = match.snippet;
+      button.append(page, title, snippet);
+      button.addEventListener('click', () => selectSearchResult(match.entry));
+      results.appendChild(button);
+    });
+
+    status.textContent = matches.length > shown.length
+      ? 'Menampilkan ' + shown.length + ' dari ' + matches.length + ' hasil.'
+      : matches.length + ' hasil.';
+  }
+
+  function initSearch() {
+    const input = document.querySelector('[data-search-input]');
+    const form = document.querySelector('[data-search-form]');
+    const clear = document.querySelector('[data-search-clear]');
+    if (!input || !form) return;
+
+    searchIndex = buildSearchIndex();
+    input.addEventListener('input', renderSearchResults);
+    input.addEventListener('keydown', (event) => {
+      const results = document.querySelector('[data-search-results]');
+      const buttons = results ? Array.from(results.querySelectorAll('[data-search-result]')) : [];
+      if (event.key === 'ArrowDown' && buttons.length) {
+        event.preventDefault();
+        setActiveSearchResult(activeSearchResult + 1);
+      } else if (event.key === 'ArrowUp' && buttons.length) {
+        event.preventDefault();
+        setActiveSearchResult(activeSearchResult < 0 ? buttons.length - 1 : activeSearchResult - 1);
+      } else if (event.key === 'Escape' && results && !results.hidden) {
+        event.preventDefault();
+        event.stopPropagation();
+        closeSearchResults();
+      }
+    });
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const results = document.querySelector('[data-search-results]');
+      const buttons = results ? Array.from(results.querySelectorAll('[data-search-result]')) : [];
+      if (buttons.length) buttons[activeSearchResult >= 0 ? activeSearchResult : 0].click();
+      else renderSearchResults();
+    });
+    if (clear) {
+      clear.addEventListener('click', () => {
+        input.value = '';
+        renderSearchResults();
+        input.focus();
+      });
+    }
+    document.addEventListener('click', (event) => {
+      if (!event.target.closest('[data-search]')) closeSearchResults();
+    });
+  }
+
   function handleGlobalNavigation() {
     document.addEventListener('click', (event) => {
       const link = event.target.closest('a[href^="#"]');
@@ -559,6 +815,15 @@
     document.querySelectorAll('[data-rail-open]').forEach((button) => {
       button.addEventListener('click', openRail);
     });
+    document.querySelectorAll('[data-search-open]').forEach((button) => {
+      button.addEventListener('click', () => {
+        openRail();
+        window.setTimeout(() => {
+          const input = document.querySelector('[data-search-input]');
+          if (input) input.focus();
+        }, 100);
+      });
+    });
     document.querySelectorAll('[data-rail-close]').forEach((button) => {
       button.addEventListener('click', () => closeRail(true));
     });
@@ -590,6 +855,7 @@
       return;
     }
     handleGlobalNavigation();
+    initSearch();
     renderRoute({ initial: true });
   }
 
